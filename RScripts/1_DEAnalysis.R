@@ -1,5 +1,5 @@
 ## ============================================================
-## 1_DEAnalysis.R — Modular DE + Plot separation (gene/isoform)
+## 1_DEAnalysis.R — Modular DE (gene/isoform)
 ## ============================================================
 
 suppressPackageStartupMessages({
@@ -309,7 +309,7 @@ write.table(counts_summary_shr, file.path(shr_tbl, "DE_counts_summary.tsv"),
 
 
 ## ============================================================
-## Part 4 — Shrunken plots (independent of main DE loop)
+## Part 4 — Shrunken plots
 ## ============================================================
 
 col_scale <- c(up = "#D62728", down = "#1F77B4", ns = "gray80")
@@ -355,7 +355,7 @@ for (fp in files_shr) {
          x = "log2(Fold Change)", y = "-log10(adjusted p-value)") +
     theme_bw(10)
   
-  ## --- Save all ---
+  ## --- Save plots ---
   ggsave(file.path(shr_fig, paste0("MA_", nm, ".png")), p_ma,  width = 6, height = 5, dpi = 300)
   ggsave(file.path(shr_fig, paste0("Volcano_", nm, ".png")), p_vol, width = 6.5, height = 5, dpi = 300)
 }
