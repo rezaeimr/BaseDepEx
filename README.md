@@ -5,13 +5,16 @@ This repository contains a modular RNA-seq analysis workflow for studying **drug
 
 Currently included:
 - `RScripts/1_DEAnalysis.R`: Differential expression analysis and visualization (MA, Volcano, PCA, dispersion)
-- `data/`: Example input files (counts, metadata, annotation)
+- `RScripts/2_interaction.R`: Multifactorial DESeq2 for interaction of treatments with baseline
+
+- `data/`: Example input files (gene_count.tsv, isoform_count.tsv, metadata.txt, annotation.txt)
+
 - `results/`: Output folders for tables and figures
 
 ---
 
 ## Usage
 
-Run from the repository root:
+Use RStudio or run from the repository root:
 ```bash
 Rscript RScripts/1_DEAnalysis.R
