@@ -1,4 +1,4 @@
-# BaseDepEx
+# BaseDepEx: Baseline-dependent Expression Analysis
 A modular pipeline for Baseline-dependent expression analysis at both gene and isoform levels and downstream analyses.
 
 This repository contains a modular RNA-seq analysis workflow for studying **drug responses under different baseline conditions**.
@@ -6,6 +6,7 @@ This repository contains a modular RNA-seq analysis workflow for studying **drug
 Currently included:
 - `RScripts/1_DEAnalysis.R`: Differential expression analysis and visualization (MA, Volcano, PCA, dispersion)
 - `RScripts/2_interaction.R`: Multifactorial DESeq2 for interaction of treatments with baseline
+- `RScripts/3_enrichment`: GSEA and ORA analysis for the results of each step
 
 - `data/`: Example input files (gene_count.tsv, isoform_count.tsv, metadata.txt, annotation.txt)
 

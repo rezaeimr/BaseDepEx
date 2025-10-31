@@ -1,5 +1,5 @@
 ## ============================================================
-## 1_DEAnalysis.R — Modular DE (gene/isoform)
+## 1_DEAnalysis.R — Modular DE  (gene/isoform)
 ## ============================================================
 
 suppressPackageStartupMessages({
@@ -15,7 +15,7 @@ set.seed(1)
 ## ---------------- Parameters ----------------
 padj_cutoff <- 0.01
 lfc_cutoff  <- 0
-shrink_type <- "apeglm" 
+shrink_type <- "apeglm"  
 
 ## ---------------- Paths ----------------
 base_dir <- getwd()
@@ -88,17 +88,22 @@ dds1 <- DESeq(dds1, parallel = TRUE)
 dds2 <- DESeq(dds2, parallel = TRUE)
 
 ## ============================================================
-## Part 1 — DE calculation
+## Part 1 — DE calculation 
 ## ============================================================
 
 counts_summary_raw <- data.frame()
 for (g in levels(dds1$group)) {
+  # determine reference
   ref <- if (grepl("_OHT$", g)) "DMSO_OHT" else "DMSO"
+  
+  # special baseline comparison
+  if (g == "DMSO_OHT") ref <- "DMSO"
+  
   if (g == ref || !(ref %in% levels(dds1$group))) next
-  nm <- g
+  nm <- if (g == "DMSO_OHT") "DMSO_OHT_vs_DMSO" else g
   message(" [RAW] ", nm)
   
-  res_raw <- results(dds1, contrast = c("group", g, ref))
+  res_raw <- results(dds1, contrast = c("group", g, ref))  
   res_df <- as.data.frame(res_raw)
   res_df[[id_col]] <- sub("\\..*$", "", rownames(res_df))  # strip version
   res_df <- merge(res_df, annotation2, by = id_col, all.x = TRUE, sort = FALSE)
@@ -144,6 +149,7 @@ if (exists("dds2")) {
   plotDispEsts(dds2)
   dev.off()
 }
+
 
 ## PCA plots per comparison
 # Define color scheme for PCA (treated = red, control = blue)
@@ -193,7 +199,7 @@ for (g in levels(dds1$group)) {
          p_pca, width = 6, height = 5, dpi = 300)
 }
 
-## ---------- MA & Volcano ----------
+## ---------- MA & Volcano  ----------
 col_scale <- c(up = "#D62728", down = "#1F77B4", ns = "gray80")
 files <- list.files(tbl_dir, pattern = "^tT_.*\\.tsv$", full.names = TRUE)
 
@@ -224,7 +230,7 @@ for (fp in files) {
   res_df$cat <- factor(res_df$sig_raw, levels = c("ns", "down", "up"))
   plot_df <- res_df %>% arrange(cat)  # ns first, then down, then up
   
-  ## --- MA plot ---
+  ## --- MA plot (with legend) ---
   p_ma <- ggplot(plot_df, aes(x = log10(baseMean + 1), y = log2FoldChange, color = cat)) +
     geom_point(size = 1.2, alpha = 0.85) +
     scale_color_manual(values = col_scale,
@@ -235,7 +241,7 @@ for (fp in files) {
     labs(title = paste("MA:", nm), x = "log10(baseMean + 1)", y = "log2(Fold Change)") +
     theme_bw(10)
   
-  ## --- Volcano plot ---
+  ## --- Volcano plot (with legend) ---
   p_vol <- ggplot(plot_df, aes(x = log2FoldChange, y = -log10(padj), color = cat)) +
     geom_point(size = 1.2, alpha = 0.85) +
     scale_color_manual(values = col_scale,
@@ -252,14 +258,22 @@ for (fp in files) {
 }
 
 ## ============================================================
-## Part 3 — Shrinkage-based DE calculation
+## Part 3 — Shrinkage-based DE calculation 
 ## ============================================================
 
 counts_summary_shr <- data.frame()
 for (g in levels(dds1$group)) {
+  # define reference
   ref <- if (grepl("_OHT$", g)) "DMSO_OHT" else "DMSO"
+  
+  # special baseline comparison
+  if (g == "DMSO_OHT") ref <- "DMSO"
+  
+  # skip invalid contrasts
   if (g == ref || !(ref %in% levels(dds1$group))) next
-  nm <- g
+  
+  # set readable contrast name
+  nm <- if (g == "DMSO_OHT") "DMSO_OHT_vs_DMSO" else g  
   message(" [SHRUNKEN] ", nm)
   
   dds_use <- if (ref == "DMSO_OHT") dds2 else dds1
@@ -355,9 +369,8 @@ for (fp in files_shr) {
          x = "log2(Fold Change)", y = "-log10(adjusted p-value)") +
     theme_bw(10)
   
-  ## --- Save plots ---
+  ## --- Save all ---
   ggsave(file.path(shr_fig, paste0("MA_", nm, ".png")), p_ma,  width = 6, height = 5, dpi = 300)
   ggsave(file.path(shr_fig, paste0("Volcano_", nm, ".png")), p_vol, width = 6.5, height = 5, dpi = 300)
 }
-
 
