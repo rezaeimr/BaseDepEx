@@ -1,0 +1,7 @@
+# requirements.txt — R packages needed for 1_DEAnalysis
+tidyverse
+DESeq2
+apeglm
+ggplot2
+ggrepel
+BiocParallel
