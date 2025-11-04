@@ -13,7 +13,7 @@ set.seed(1)
 message(">>> 5_ORA_Categories running — ORA on MYC category genes")
 
 ## -------------------- Directories --------------------
-project_root <- "/hpcnfs/data/BA/MYC_NMD_keep/mrezaei/gene_level"
+project_root <- getwd()
 cat_tbl <- file.path(project_root, "results/4_categories/tables")
 ora_tbl <- file.path(project_root, "results/5_ORA_categories/tables")
 ora_fig <- file.path(project_root, "results/5_ORA_categories/figures")
