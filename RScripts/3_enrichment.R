@@ -16,7 +16,7 @@ set.seed(1)
 message(">>> 3_enrichment running — GSEA + ORA with ratio labels")
 
 ## -------------------- Directories --------------------
-project_root <- "/hpcnfs/data/BA/MYC_NMD_keep/mrezaei/gene_level"
+project_root <- getwd()
 data_dir     <- file.path(project_root, "data")
 
 de_tbl   <- file.path(project_root, "results", "1_DEAnalysis", "tables", "shrunk")

@@ -11,7 +11,7 @@ suppressPackageStartupMessages({
 set.seed(1)
 
 ## -------------------- Directories --------------------
-project_root <- "/hpcnfs/data/BA/MYC_NMD_keep/mrezaei/gene_level"
+project_root <- getwd()
 
 de_tbl  <- file.path(project_root, "results/1_DEAnalysis/tables/shrunk")
 cat_tbl <- file.path(project_root, "results/4_categories/tables")

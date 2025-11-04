@@ -12,7 +12,7 @@ suppressPackageStartupMessages({
 analysis_level <- "gene"  # choose: "gene" or "isoform"
 
 ## ---------------- Directories ----------------
-base_root <- "/hpcnfs/data/BA/MYC_NMD_keep/mrezaei/gene_level"
+base_root <- getwd()
 
 de_tbl   <- file.path(base_root, "results/1_DEAnalysis/tables/shrunk")
 int_tbl  <- file.path(base_root, "results/2_interaction/tables")
