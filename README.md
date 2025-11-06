@@ -51,30 +51,31 @@ The workflow consists of six modular steps, each implemented as a standalone R s
 
 ```
 ├── data
-│   └── README.md
+│   ├── annotation.txt
+│   └── metadata_NMD.txt
 ├── LICENSE
 ├── README.md
 ├── requirements.txt
 ├── results
-│   ├── 1_DEAnalysis
-│   │   └── README.md
-│   └── 2_interaction
-│       └── README.md
-├── RScripts
-│   ├── 1_DEAnalysis.R
-│   ├── 2_interaction.R
-│   ├── 3_enrichment.R
-│   ├── 4_categories.R
-│   ├── 5_ORA_categories.R
-│   └── 6_scatterplot.R
+│   ├── 1_DEAnalysis
+│   │   └── README.md
+│   └── 2_interaction
+│       └── README.md
+└── RScripts
+    ├── 1_DEAnalysis.R
+    ├── 2_interaction.R
+    ├── 3_enrichment.R
+    ├── 4_categories.R
+    ├── 5_ORA_categories.R
+    └── 6_scatterplot.R
 ```
 
 ## Input Data Requirements
 
 All input files used in the BaseDepEx pipeline must be placed inside the **`data/`** directory.  
-This directory contains raw count matrices, metadata, and annotation tables necessary for both **gene-level** and **isoform-level** differential expression analysis.
+This directory contains raw count matrices, metadata, and annotation tables necessary for both **gene-level** and **isoform-level** differential expression analysis. Examples of Metadata and annotation files are provided in the **`data/`** directory.
 
-### 📁 Required Files
+### Required Files
 
 | File Name | Description | Required Columns | Notes |
 |------------|--------------|------------------|--------|
