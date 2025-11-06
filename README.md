@@ -13,8 +13,7 @@ The workflow consists of six modular steps, each implemented as a standalone R s
 
 | Step | Script | Description |
 |------|---------|-------------|
-| **1️- Differential Expression** | **1_DEAnalysis.R** | Performs DE analysis using **DESeq2** for all drug treatments at both baseline (OHT OFF) and activated (OHT ON) states. Supports both gene and isoform count matrices. Produces log₂FC
- tables, MA plots, volcano plots, PCA, and dispersion plots. |
+| **1️- Differential Expression** | **1_DEAnalysis.R** | Performs DE analysis using **DESeq2** for all drug treatments at both baseline (OHT OFF) and activated (OHT ON) states. Supports both gene and isoform count matrices. Produces log₂FC tables, MA plots, volcano plots, PCA, and dispersion plots. |
 | **2️- Interaction Analysis** | **2_interaction.R** | Tests for *drug × baseline (OHT)* interactions to identify genes with baseline-dependent drug responses. Outputs log₂FC tables and MA/volcano plots for interaction terms. |
 | **3️- Enrichment Analysis** | **3_enrichment.R** | Performs both **GSEA** and **ORA** using MSigDB gene sets (Hallmark, GO BP, KEGG, and C2:CP). Generates tables and barplots with ratio labels, distinguishing activated (red, NES > 0) and suppressed (blue, NES < 0) pathways. |
 | **4️- Category Detection** | **4_categories.R** | Integrates DE and interaction results to classify genes into **MYC-enhanced**, **MYC-suppressed**, and **Switched** regulatory categories. Visualizes overlaps using **UpSet plots**. |
