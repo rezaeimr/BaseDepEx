@@ -68,3 +68,20 @@ The workflow consists of six modular steps, each implemented as a standalone R s
 │   ├── 5_ORA_categories.R
 │   └── 6_scatterplot.R
 ```
+
+## 🧩 Input Data Requirements
+
+All input files used in the BaseDepEx pipeline must be placed inside the **`data/`** directory.  
+This directory contains raw count matrices, metadata, and annotation tables necessary for both **gene-level** and **isoform-level** differential expression analysis.
+
+### 📁 Required Files
+
+| File Name | Description | Required Columns | Notes |
+|------------|--------------|------------------|--------|
+| **`metadata_NMD.txt`** | Experimental design metadata describing each sample. | `SampleID`, `drug`, `OHT`, `group`, `replicate` | The `group` column defines DESeq2 groups (e.g., `11j`, `11j_OHT`, `DMSO`, etc.). <br> The `drug` and `OHT` columns are required for interaction analyses (`2_interaction.R`). |
+| **`gene_counts.tsv`** | Gene-level count matrix (one row per gene). | `gene_id`, followed by all sample names (matching `SampleID` in metadata). | Used when `analysis_level = "gene"`. |
+| **`isoform_counts.tsv`** | Isoform-level count matrix (one row per transcript/isoform). | `isoform_id`, `gene_id`, followed by all sample names. | Used when `analysis_level = "isoform"`. |
+| **`annotation.txt`** | Reference annotation table mapping Ensembl IDs to symbols. | For **gene-level:** `gene_id`, `symbol`.<br> For **isoform-level:** `isoform_id`, `gene_id`, `symbol`. | Must match the IDs used in count tables (e.g., `ENSMUSG...` for mouse). |
+
+
+
