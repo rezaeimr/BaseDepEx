@@ -37,7 +37,7 @@ dir.create(shr_fig, recursive = TRUE, showWarnings = FALSE)
 # Choose: "gene" or "isoform"
 analysis_level <- "gene"
 
-metadata <- read.delim(file.path(data_dir, "metadata_NMD.txt"), check.names = FALSE)
+metadata <- read.delim(file.path(data_dir, "metadata.txt"), check.names = FALSE)
 stopifnot(all(c("SampleID", "group") %in% colnames(metadata)))
 
 annotation <- read.delim(file.path(data_dir, "annotation.txt"), check.names = FALSE)

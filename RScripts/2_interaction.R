@@ -36,7 +36,7 @@ lfc_cutoff  <- 0
 analysis_level <- "gene"   # or "isoform"
 
 ## ---- Load metadata ----
-metadata <- read.delim(file.path(data_dir, "metadata_NMD.txt"), check.names = FALSE)
+metadata <- read.delim(file.path(data_dir, "metadata.txt"), check.names = FALSE)
 stopifnot(all(c("SampleID", "drug", "OHT") %in% colnames(metadata)))
 
 metadata$OHT  <- factor(metadata$OHT, levels = c("OFF", "ON"))
